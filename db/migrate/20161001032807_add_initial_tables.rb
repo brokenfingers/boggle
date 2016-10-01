@@ -3,6 +3,7 @@ class AddInitialTables < ActiveRecord::Migration
     create_table :boards do |t|
       t.integer :num_of_columns, null: false, default: 4
       t.integer :num_of_rows, null: false, default: 4
+      t.text :values, null: false
     end
 
     create_table :nodes do |t|

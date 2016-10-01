@@ -1,0 +1,3 @@
+module Graphable
+
+end

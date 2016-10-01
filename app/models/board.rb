@@ -1,7 +1,10 @@
+# Board consists of nodes that build a cyclic, and undirected graphs with possibly duplicate node values
 class Board < ActiveRecord::Base
+  include Dictionariable
+
   has_many :nodes
 
-  # Comma separated string with board dices values
+  # Comma separated string with board dices values or array
   attr_accessor :values
 
   before_save :validate_board_settings, if: :new_record? # Validate only on new record?
@@ -15,15 +18,34 @@ class Board < ActiveRecord::Base
 
     starting_nodes = nodes.where(value: %W(#{char_list.shift} *)).includes(:adjacent_nodes)
 
+    # DFS should return visited nodes
+    # Using that check if word is present
     starting_nodes.each do |node|
-      word_found = dfs(node, Array.new(char_list), word)
+      visited_nodes = dfs(node, Array.new(char_list))
 
-      return true if word_found
+      return true if word_found?(visited_nodes, word)
     end
     false
   end
 
-  def dfs(starting_node, char_list, word)
+  def word_found?(nodes, word)
+    node_values = nodes.map(&:value)
+    wildcard_count = node_values.find_all { |char| char == '*' }.count
+
+    word.split('').each do |char|
+      if !node_values.include?(char)
+        if wildcard_count < 0
+          return false
+        else
+          wildcard_count -= 1
+        end
+      end
+    end
+    true
+  end
+
+  # TODO: Try to see if everything can be eager_loaded at once
+  def dfs(starting_node, char_list)
     nodes_to_visit = []
     visited_nodes = []
 
@@ -49,24 +71,11 @@ class Board < ActiveRecord::Base
       end
     end
 
-    node_values = visited_nodes.map(&:value)
-    wildcard_count = node_values.find_all { |char| char == '*' }.count
-
-    word.split('').each do |char|
-      if !node_values.include?(char)
-        if wildcard_count < 0
-          return false
-        else
-          wildcard_count -= 1
-        end
-      end
-    end
-    true
+    visited_nodes
   end
 
   def is_word_valid?(word)
-    # Using the dictionary
-    # Use binary search
+    is_word_in_dictionary?(word) && is_word_present?(word)
   end
 
   private
@@ -85,12 +94,13 @@ class Board < ActiveRecord::Base
     end
   end
 
+  # TODO: Try to reduce complexity
   def create_edges
     num_of_rows.times do |row_index|
       num_of_columns.times do |col_index|
         node = board[row_index][col_index]
 
-        if row_index == 0
+        if row_index == 0 # Top most row
           if col_index == 0 # Left most column
             Edge.create(from_node_id: node.id, to_node_id: board[row_index][col_index + 1].id)
             Edge.create(from_node_id: node.id, to_node_id: board[row_index + 1][col_index + 1].id)
@@ -106,7 +116,7 @@ class Board < ActiveRecord::Base
             Edge.create(from_node_id: node.id, to_node_id: board[row_index + 1][col_index].id)
             Edge.create(from_node_id: node.id, to_node_id: board[row_index + 1][col_index + 1].id)
           end
-        elsif row_index == num_of_rows - 1
+        elsif row_index == num_of_rows - 1 # Bottom most row
           if col_index == 0 # Left most column
             Edge.create(from_node_id: node.id, to_node_id: board[row_index][col_index + 1].id)
             Edge.create(from_node_id: node.id, to_node_id: board[row_index - 1][col_index + 1].id)

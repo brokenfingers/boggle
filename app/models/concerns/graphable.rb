@@ -1,7 +1,7 @@
 module Graphable
   extend ActiveSupport::Concern
 
-  # Customized DFS to only go through a specified path
+  # Customized DFS to find a specified path
   def dfs(starting_node, char_list)
     nodes_to_visit = []
     visited_nodes = []
@@ -33,17 +33,13 @@ module Graphable
 
   private
 
-  def graph_node_values
-    @graph_node_values ||= values.is_a?(Array) ? values : values.gsub(' ', '').split(',')
-  end
-
   def graph
     @graph ||= nodes.each_slice(num_of_columns).to_a
   end
 
   # Node can changed to be polymorphic association to allow association of any type of Graph like models
   def create_nodes
-    graph_node_values.each do |value|
+    values.each do |value|
       Node.create(board_id: id, value: value)
     end
   end

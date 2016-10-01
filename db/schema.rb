@@ -17,8 +17,9 @@ ActiveRecord::Schema.define(version: 20161001032807) do
   enable_extension "plpgsql"
 
   create_table "boards", force: :cascade do |t|
-    t.integer "num_of_columns", default: 4, null: false
-    t.integer "num_of_rows",    default: 4, null: false
+    t.integer "num_of_columns", default: 4,          null: false
+    t.integer "num_of_rows",    default: 4,          null: false
+    t.text    "values",         default: "--- []\n", null: false
   end
 
   create_table "edges", force: :cascade do |t|

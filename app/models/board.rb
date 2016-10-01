@@ -3,14 +3,20 @@ class Board < ActiveRecord::Base
   include Dictionariable
   include Graphable
 
+  serialize :values
+
   has_many :nodes
 
-  # Comma separated characters as string or array of characters
-  attr_accessor :values
-
+  before_save :format_values
   before_save :validate_board_settings, if: :new_record? # Validate only on new record?
   after_create :create_nodes
   after_create :create_edges
+
+  class << self
+    def find_by_random
+      self.offset(rand(self.count)).limit(1).first
+    end
+  end
 
   def is_word_present?(word)
     return false if word.length > max_number_of_letters
@@ -56,8 +62,12 @@ class Board < ActiveRecord::Base
   end
 
   def validate_board_settings
-    return true if board_values.length == max_number_of_letters
+    return true if values.length == max_number_of_letters
     errors.add(:base, 'The number of letters is not fit for the specified dimensions')
     false
+  end
+
+  def format_values
+    self.values = values.is_a?(Array) ? values : values.gsub(' ', '').split(',')
   end
 end

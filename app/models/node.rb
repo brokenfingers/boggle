@@ -5,4 +5,8 @@ class Node < ActiveRecord::Base
 
   has_many :edges, foreign_key: :from_node_id
   has_many :adjacent_nodes, through: :edges, source: :to_node
+
+  def adjacency_list
+    adjacent_nodes.pluck(:value)
+  end
 end

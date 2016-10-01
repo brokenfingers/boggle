@@ -18,6 +18,18 @@ class Board < ActiveRecord::Base
     end
   end
 
+  def as_json_object
+    as_json(
+      only: [:id, :values, :num_of_rows, :num_of_columns],
+      include: {
+        nodes: {
+          only: [:value],
+          methods: [:adjacency_list]
+        }
+      }
+    )
+  end
+
   def is_word_present?(word)
     return false if word.length > max_number_of_letters
 

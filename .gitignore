@@ -11,5 +11,6 @@
 /log/*
 !/log/.keep
 /tmp
+/app/assets/javascripts/bundle
 /public/assets/javascripts/bundle
 /node_modules

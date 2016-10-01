@@ -1,6 +1,6 @@
 {
-  "name": "APPLICATION_NAME",
-  "description": "TODO: Add a brief description for the application",
+  "name": "Bogger",
+  "description": "Simple Game",
   "version": "1.0.0",
   "babel": {
     "presets": [

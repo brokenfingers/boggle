@@ -9,6 +9,21 @@
   justify-content: center;
   align-items: center;
   text-align: center;
+  background-image: image-url('jumbo-bg.jpg');
+  background-size: cover;
+  color: white;
+  overflow: hidden;
+}
+
+.jumbotron .bg-overlay {
+  height: 550px;
+  background: rgba(0,0,0,0.5);
+}
+
+.jumbotron .container {
+  position: relative;
+  top: 158px;
+  text-align: center;
 }
 
 .home-btn {

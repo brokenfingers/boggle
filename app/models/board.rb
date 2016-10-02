@@ -64,7 +64,22 @@ class Board < ActiveRecord::Base
   end
 
   def is_word_valid?(word)
+    word = word.upcase
     is_word_in_dictionary?(word) && is_word_present?(word)
+  end
+
+  def word_value(word)
+    return 0 if word.length < 3
+
+    case word.length
+    when 3..4 then value = 1
+    when 5 then value = 2
+    when 6 then value = 3
+    when 7 then value = 5
+    else
+      value = 11
+    end
+    value
   end
 
   private

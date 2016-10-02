@@ -1,20 +1,26 @@
 class Api::BoardsController < ApplicationController
   def index
-    # Send Board.find_by_random.as_json (as_json should send all nodes with its adjacency values)
     render json: Board.find_by_random.as_json_object, status: :ok
   end
 
   def verify_word
-    if board.is_word_valid?(params[:word])
+    valid_word = board.is_word_valid?(word)
+    points = valid_word ? board.word_value(word) : 0
 
-    else
-
-    end
+    render json: {
+      points: points,
+      valid: valid_word,
+      word: word
+    }, status: :ok
   end
 
   private
 
   def board
-    @board ||= Board.find_by(id: params[:id])
+    @board ||= Board.find_by(id: params[:board_id])
+  end
+
+  def word
+    @word ||= params[:word]
   end
 end

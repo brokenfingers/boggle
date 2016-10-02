@@ -11,12 +11,12 @@ export default function game(state={
     case DISPLAY_RESULT:
       if (action.payload.valid) {
        return Object.assign({}, state, {
-         correctWords: [...state.correctWords, [action.payload.word]],
+         correctWords: [...state.correctWords, action.payload.word],
          points: state.points + action.payload.points
        });
       } else {
         return Object.assign({}, state, {
-          incorrectWords: [...state.incorrectWords, [action.payload.word]],
+          incorrectWords: [...state.incorrectWords, action.payload.word],
           points: state.points + action.payload.points
         });
       }

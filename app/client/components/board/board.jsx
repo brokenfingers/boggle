@@ -8,6 +8,10 @@ class Board extends Component {
     super(props);
   }
 
+  anyDiceSelected() {
+    return this.props.selectedDice.row !== null && this.props.selectedDice.col !== null;
+  }
+
   renderRows() {
     let board_node_rows = _.chunk(this.props.board.nodes, this.props.board.num_of_columns);
 
@@ -16,9 +20,13 @@ class Board extends Component {
     for (let i = 0; i < this.props.board.num_of_rows; i++) {
       board_rows.push(
         <DiceRow
+          rowNumber={i}
           dices={board_node_rows[i]}
           numberOfCols={this.props.board.num_of_columns}
           key={i}
+          selectDice={this.props.selectDice}
+          selectedDice={this.props.selectedDice}
+          anyDiceSelected={this.anyDiceSelected()}
         />
       )
     }
@@ -28,8 +36,10 @@ class Board extends Component {
 
   render() {
     return (
-      <div>
-        {this.renderRows()}
+      <div className='container-fluid board-container'>
+        <div id='boggle-board'>
+          {this.renderRows()}
+        </div>
       </div>
     )
   }

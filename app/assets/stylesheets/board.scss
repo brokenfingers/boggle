@@ -1,0 +1,35 @@
+#boggle-board {
+  border: 1px solid black;
+}
+
+.board-container {
+  width: 434px;
+}
+
+.board-row {
+  border: 1px solid blue;
+  height: 100px;
+}
+
+.dice {
+  border: 1px solid red;
+  display: flex;
+  float: left;
+  height: 100px;
+  width: 100px;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+
+  &.selected {
+    background-color: yellow;
+  }
+
+  &.adjacent {
+    background-color: red;
+  }
+}
+
+.input-container {
+  width: 400px;
+}

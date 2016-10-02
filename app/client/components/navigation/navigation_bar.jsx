@@ -9,7 +9,7 @@ export default class NavigationBar extends Component {
   render() {
     return (
       <div className='navbar navbar-default'>
-        <div className='container-fluid'>
+        <div className='container-fluid navbar-container'>
           <NavigationHeader>
             <p className='navbar-brand'>Boggle</p>
           </NavigationHeader>

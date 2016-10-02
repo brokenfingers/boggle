@@ -12,8 +12,13 @@ class DiceRow extends Component {
     this.props.dices.forEach((dice, index) => {
       dices.push(
         <Dice
+          colNumber={index}
+          rowNumber={this.props.rowNumber}
           dice={dice}
           key={index}
+          selectDice={this.props.selectDice}
+          selectedDice={this.props.selectedDice}
+          anyDiceSelected={this.props.anyDiceSelected}
         />
       )
     });
@@ -23,7 +28,7 @@ class DiceRow extends Component {
 
   render() {
     return (
-      <div>
+      <div className='board-row'>
         {this.renderDices()}
       </div>
     )
@@ -31,6 +36,7 @@ class DiceRow extends Component {
 }
 
 DiceRow.propTypes = {
+  rowNumber: PropTypes.number.isRequired,
   numberOfCols: PropTypes.number.isRequired,
   dices: PropTypes.arrayOf(PropTypes.object).isRequired
 }

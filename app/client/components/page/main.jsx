@@ -3,7 +3,7 @@ import Application from '../layout/application';
 import Board from '../board/board';
 
 import { connect } from 'react-redux';
-import { getBoard } from '../../actions/board';
+import { getBoard, selectDice } from '../../actions/board';
 import { verifyWord } from '../../actions/game';
 
 class Main extends Component {
@@ -16,10 +16,11 @@ class Main extends Component {
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputSubmit = this.handleInputSubmit.bind(this);
+    this.handleButtonSubmit = this.handleButtonSubmit.bind(this);
   }
 
   componentDidMount() {
-    this.props.dispatch(getBoard());
+    this.props.getBoard();
   }
 
   handleInputChange(event) {
@@ -27,19 +28,38 @@ class Main extends Component {
   }
 
   handleInputSubmit(event) {
-    // Check that the word that is trying to be submitted is not already in the list of correct words
-    if (event.key === 'Enter') {
-      this.props.dispatch(verifyWord(this.state.inputValue, this.props.board.id));
+    // Need to set error message when already used word was used
+    if (event.key === 'Enter' && this.props.correctWords.indexOf(this.state.inputValue) == -1) {
+      this.props.verifyWord(this.state.inputValue, this.props.board.id);
+      this.setState({inputValue: ''});
     }
   }
 
+  handleButtonSubmit(event) {
+    if (this.props.correctWords.indexOf(this.state.inputValue) == -1) {
+      this.props.verifyWord(this.state.inputValue, this.props.board.id);
+      this.setState({inputValue: ''});
+    }
+  }
+
+  // Input needs to be controlled by the store to handle dice selection
   render() {
     return (
       <Application>
         <div>
-          <Board board={this.props.board} />
+          <div>
+            {this.props.points}
+          </div>
+          <Board board={this.props.board} selectDice={this.props.selectDice} selectedDice={this.props.selectedDice}/>
 
-          <input type='text' onChange={this.handleInputChange} onKeyUp={this.handleInputSubmit}/>
+          <div className='container-fluid input-container'>
+            <div className='row'>
+              <input type='text' onChange={this.handleInputChange} onKeyUp={this.handleInputSubmit} value={this.state.inputValue}/>
+            </div>
+            <div className='row'>
+              <button className='btn btn-default' onClick={this.handleButtonSubmit}>Submit</button>
+            </div>
+          </div>
         </div>
       </Application>
     )
@@ -51,8 +71,17 @@ function mapStateToProps(state) {
     board: state.board.board,
     correctWords: state.game.correctWords,
     incorrectWords: state.game.incorrectWords,
-    points: state.game.points
+    points: state.game.points,
+    selectedDice: state.board.selectedDice
   };
 }
 
-export default connect(mapStateToProps)(Main);
+function mapDispatchToProps(dispatch) {
+  return {
+    getBoard: () => dispatch(getBoard()),
+    selectDice: (row, col) => dispatch(selectDice(row, col)),
+    verifyWord: (word) => dispatch(verifyWord(word))
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

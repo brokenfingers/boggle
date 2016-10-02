@@ -1,6 +1,7 @@
 import fetch from 'isomorphic-fetch';
 
 export const LOAD_BOARD = 'LOAD_BOARD';
+export const SELECT_DICE = 'SELECT_DICE';
 
 export function getBoard() {
   return (dispatch) => {
@@ -18,5 +19,15 @@ export function loadBoard(payload) {
   return {
     type: LOAD_BOARD,
     payload: payload
+  };
+}
+
+export function selectDice(row, col) {
+  return {
+    type: SELECT_DICE,
+    payload: {
+      row: row,
+      col: col
+    }
   };
 }

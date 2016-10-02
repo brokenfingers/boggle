@@ -4,7 +4,7 @@ class ScoreBoard extends Component {
   render() {
     return (
       <div className={`container-fluid ${this.props.className}`} id={this.props.id}>
-        <p>Total Points: {this.props.points}</p>
+        <p className='score'>Total Points: {this.props.points}</p>
       </div>
     );
   }

@@ -12,7 +12,7 @@ export default class NavigationBar extends Component {
       <div className='navbar navbar-default'>
         <div className='container-fluid navbar-container'>
           <NavigationHeader>
-            <Link to='/' className='navbar-brand'>Boggle</Link>
+            <Link to='/' className='navbar-brand boggle-brand'>Boggle</Link>
           </NavigationHeader>
         </div>
       </div>

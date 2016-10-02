@@ -2,6 +2,10 @@ import {
   LOAD_BOARD, SELECT_DICE, CLEAR_SELECTED_DICES
 } from '../actions/board';
 
+import {
+  DISPLAY_RESULT
+} from '../actions/game';
+
 export default function board(state={
   board: {},
   selectedDices: []
@@ -16,6 +20,7 @@ export default function board(state={
         selectedDices: [...state.selectedDices, action.payload.coordinates]
       });
     case CLEAR_SELECTED_DICES:
+    case DISPLAY_RESULT:
       return Object.assign({}, state, {
         selectedDices: []
       });

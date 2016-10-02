@@ -23,7 +23,8 @@ export default function game(state={
       } else {
         return Object.assign({}, state, {
           incorrectWords: [...state.incorrectWords, action.payload.word],
-          points: state.points + action.payload.points
+          points: state.points + action.payload.points,
+          inputValue: ''
         });
       }
     case UPDATE_INPUT:

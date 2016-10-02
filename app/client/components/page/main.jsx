@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Application from '../layout/application';
 import Board from '../board/board';
+import Modal from '../shared/modal/modal';
 
 import { connect } from 'react-redux';
 import { getBoard, selectDice, clearSelectedDices } from '../../actions/board';

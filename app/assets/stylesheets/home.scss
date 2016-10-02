@@ -3,5 +3,23 @@
 }
 
 .home-jumbotron {
+  height: 550px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
   text-align: center;
+}
+
+.home-btn {
+  margin-top: 3px;
+  color: white;
+  background-color: #1da1f2;
+  text-transform: uppercase;
+  border-color: gray;
+
+  &:hover, &:active, &:focus {
+    color: white;
+    background-color: #1889ce;
+  }
 }

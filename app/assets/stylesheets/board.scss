@@ -22,6 +22,8 @@
   justify-content: center;
   background-image: image-url('Melamine-wood-001.png');
   opacity: 0.8;
+  font-size: 25px;
+  font-weight: bold;
 
   &:hover {
     color: #333;
@@ -35,8 +37,4 @@
   &.adjacent {
     background-image: image-url('Melamine-wood-005.png');
   }
-}
-
-.input-container {
-  width: 400px;
 }

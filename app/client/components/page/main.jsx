@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Application from '../layout/application';
 import Board from '../board/board';
 import WildCardModal from '../modal/wild_card_modal';
+import ScoreBoard from '../main/score_board';
 
 import { connect } from 'react-redux';
 import { getBoard, selectDice, clearSelectedDices } from '../../actions/board';
@@ -27,13 +28,13 @@ class Main extends Component {
 
   handleInputSubmit(event) {
     // Need to set error message when already used word was used
-    if (event.key === 'Enter' && this.props.correctWords.indexOf(this.props.inputValue) == -1) {
+    if (event.key === 'Enter' && this.props.correctWords.indexOf(this.props.inputValue) < 0 && this.props.inputValue.length >= 3) {
       this.props.verifyWord(this.props.inputValue, this.props.board.id);
     }
   }
 
   handleButtonSubmit(event) {
-    if (this.props.correctWords.indexOf(this.props.inputValue) == -1) {
+    if (this.props.correctWords.indexOf(this.props.inputValue) < 0 && this.props.inputValue.length >= 3) {
       this.props.verifyWord(this.props.inputValue, this.props.board.id);
     }
   }
@@ -43,9 +44,13 @@ class Main extends Component {
     return (
       <Application>
         <div>
-          <div>
-            {this.props.points}
-          </div>
+          <ScoreBoard
+            className='scoreboard-container'
+            points={this.props.points}
+            correctWords={this.props.correctWords}
+            incorrectWords={this.props.incorrectWords}
+          />
+
           <Board
             board={this.props.board}
             selectDice={this.props.selectDice}
@@ -56,10 +61,10 @@ class Main extends Component {
 
           <div className='container-fluid input-container'>
             <div className='row'>
-              <input type='text' onChange={this.handleInputChange} onKeyUp={this.handleInputSubmit} value={this.props.inputValue}/>
+              <input type='text' className='form-control' onChange={this.handleInputChange} onKeyUp={this.handleInputSubmit} value={this.props.inputValue}/>
             </div>
             <div className='row'>
-              <button className='btn btn-default' onClick={this.handleButtonSubmit}>Submit</button>
+              <button className='btn btn-primary form-control home-btn' onClick={this.handleButtonSubmit}>Submit</button>
             </div>
           </div>
         </div>

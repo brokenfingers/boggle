@@ -20,7 +20,7 @@ export default class Home extends Component {
                 words in sequences of adjacent letters.
               </h3>
             </div>
-            <Link to='/play' className='btn btn-default'>Play</Link>
+            <Link to='/play' className='btn btn-primary home-btn'>Play</Link>
           </div>
         </div>
       </Application>

@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch';
 
 export const LOAD_BOARD = 'LOAD_BOARD';
 export const SELECT_DICE = 'SELECT_DICE';
+export const CLEAR_SELECTED_DICES = 'CLEAR_SELECTED_DICES';
 
 export function getBoard() {
   return (dispatch) => {
@@ -22,12 +23,21 @@ export function loadBoard(payload) {
   };
 }
 
-export function selectDice(row, col) {
+export function selectDice(row, col, value) {
   return {
     type: SELECT_DICE,
     payload: {
-      row: row,
-      col: col
+      coordinates: {
+        row: row,
+        col: col
+      },
+      value: value
     }
+  };
+}
+
+export function clearSelectedDices() {
+  return {
+    type: CLEAR_SELECTED_DICES
   };
 }

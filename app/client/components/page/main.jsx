@@ -3,16 +3,12 @@ import Application from '../layout/application';
 import Board from '../board/board';
 
 import { connect } from 'react-redux';
-import { getBoard, selectDice } from '../../actions/board';
-import { verifyWord } from '../../actions/game';
+import { getBoard, selectDice, clearSelectedDices } from '../../actions/board';
+import { verifyWord, updateInput } from '../../actions/game';
 
 class Main extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      inputValue: ''
-    };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputSubmit = this.handleInputSubmit.bind(this);
@@ -24,21 +20,19 @@ class Main extends Component {
   }
 
   handleInputChange(event) {
-    this.setState({ inputValue: event.target.value });
+    this.props.updateInput(event.target.value);
   }
 
   handleInputSubmit(event) {
     // Need to set error message when already used word was used
-    if (event.key === 'Enter' && this.props.correctWords.indexOf(this.state.inputValue) == -1) {
-      this.props.verifyWord(this.state.inputValue, this.props.board.id);
-      this.setState({inputValue: ''});
+    if (event.key === 'Enter' && this.props.correctWords.indexOf(this.props.inputValue) == -1) {
+      this.props.verifyWord(this.props.inputValue, this.props.board.id);
     }
   }
 
   handleButtonSubmit(event) {
-    if (this.props.correctWords.indexOf(this.state.inputValue) == -1) {
-      this.props.verifyWord(this.state.inputValue, this.props.board.id);
-      this.setState({inputValue: ''});
+    if (this.props.correctWords.indexOf(this.props.inputValue) == -1) {
+      this.props.verifyWord(this.props.inputValue, this.props.board.id);
     }
   }
 
@@ -50,11 +44,16 @@ class Main extends Component {
           <div>
             {this.props.points}
           </div>
-          <Board board={this.props.board} selectDice={this.props.selectDice} selectedDices={this.props.selectedDices}/>
+          <Board
+            board={this.props.board}
+            selectDice={this.props.selectDice}
+            clearSelectedDices={this.props.clearSelectedDices}
+            selectedDices={this.props.selectedDices}
+          />
 
           <div className='container-fluid input-container'>
             <div className='row'>
-              <input type='text' onChange={this.handleInputChange} onKeyUp={this.handleInputSubmit} value={this.state.inputValue}/>
+              <input type='text' onChange={this.handleInputChange} onKeyUp={this.handleInputSubmit} value={this.props.inputValue}/>
             </div>
             <div className='row'>
               <button className='btn btn-default' onClick={this.handleButtonSubmit}>Submit</button>
@@ -69,6 +68,7 @@ class Main extends Component {
 function mapStateToProps(state) {
   return {
     board: state.board.board,
+    inputValue: state.game.inputValue,
     correctWords: state.game.correctWords,
     incorrectWords: state.game.incorrectWords,
     points: state.game.points,
@@ -79,8 +79,10 @@ function mapStateToProps(state) {
 function mapDispatchToProps(dispatch) {
   return {
     getBoard: () => dispatch(getBoard()),
-    selectDice: (row, col) => dispatch(selectDice(row, col)),
-    verifyWord: (word) => dispatch(verifyWord(word))
+    updateInput: (value) => dispatch(updateInput(value)),
+    selectDice: (row, col, value) => dispatch(selectDice(row, col, value)),
+    verifyWord: (word, id) => dispatch(verifyWord(word, id)),
+    clearSelectedDices: () => dispatch(clearSelectedDices())
   };
 }
 

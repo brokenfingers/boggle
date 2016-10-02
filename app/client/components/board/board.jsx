@@ -27,6 +27,7 @@ class Board extends Component {
           selectDice={this.props.selectDice}
           selectedDices={this.props.selectedDices}
           anyDiceSelected={this.anyDiceSelected()}
+          clearSelectedDices={this.props.clearSelectedDices}
         />
       )
     }

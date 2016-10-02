@@ -1,5 +1,5 @@
 import {
-  LOAD_BOARD, SELECT_DICE
+  LOAD_BOARD, SELECT_DICE, CLEAR_SELECTED_DICES
 } from '../actions/board';
 
 export default function board(state={
@@ -13,7 +13,11 @@ export default function board(state={
       });
     case SELECT_DICE:
       return Object.assign({}, state, {
-        selectedDices: [...state.selectedDices, action.payload]
+        selectedDices: [...state.selectedDices, action.payload.coordinates]
+      });
+    case CLEAR_SELECTED_DICES:
+      return Object.assign({}, state, {
+        selectedDices: []
       });
     default:
       return state;

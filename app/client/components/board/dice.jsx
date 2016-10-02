@@ -54,12 +54,12 @@ class Dice extends Component {
   handleSelection() {
     if (this.props.anyDiceSelected) {
       if (this.isSelected()) {
-        // Should probably clear all selected dices
+        this.props.clearSelectedDices();
       } else if (this.isAdjacentToSelectedDice()) {
-        this.props.selectDice(this.props.row, this.props.col);
+        this.props.selectDice(this.props.row, this.props.col, this.props.dice.value);
       }
     } else {
-      this.props.selectDice(this.props.row, this.props.col);
+      this.props.selectDice(this.props.row, this.props.col, this.props.dice.value);
     }
   }
 

@@ -19,6 +19,7 @@ class DiceRow extends Component {
           selectDice={this.props.selectDice}
           selectedDices={this.props.selectedDices}
           anyDiceSelected={this.props.anyDiceSelected}
+          clearSelectedDices={this.props.clearSelectedDices}
         />
       )
     });

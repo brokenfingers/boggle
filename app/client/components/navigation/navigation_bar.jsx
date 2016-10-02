@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import NavigationHeader from './navigation_header';
 
 export default class NavigationBar extends Component {
   constructor(props) {
@@ -7,8 +8,12 @@ export default class NavigationBar extends Component {
 
   render() {
     return (
-      <div>
-
+      <div className='navbar navbar-default'>
+        <div className='container-fluid'>
+          <NavigationHeader>
+            <p className='navbar-brand'>Boggle</p>
+          </NavigationHeader>
+        </div>
       </div>
     )
   }

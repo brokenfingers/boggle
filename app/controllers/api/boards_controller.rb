@@ -1,5 +1,5 @@
-class API::BoardsController < ApplicationController
-  def show
+class Api::BoardsController < ApplicationController
+  def index
     # Send Board.find_by_random.as_json (as_json should send all nodes with its adjacency values)
     render json: Board.find_by_random.as_json_object, status: :ok
   end

@@ -8,19 +8,22 @@ class Dice extends Component {
   }
 
   isSelected() {
-    if (this.props.anyDiceSelected)
-      return this.props.rowNumber == this.props.selectedDice.row && this.props.colNumber == this.props.selectedDice.col;
-    else
-      return false;
+    for (let i = 0; i < this.props.selectedDices.length; i++) {
+      let selectedDice = this.props.selectedDices[i];
+      if (selectedDice.row == this.props.row && selectedDice.col == this.props.col)
+        return true;
+    }
+    return false;
   }
 
   isAdjacentToSelectedDice() {
-    let selectedRow = this.props.selectedDice.row;
-    let selectedCol = this.props.selectedDice.col;
-
     if (this.props.anyDiceSelected) {
-      let currentRow = this.props.rowNumber;
-      let currentCol = this.props.colNumber;
+      let selectedDice = this.props.selectedDices[this.props.selectedDices.length - 1]
+      let selectedRow = selectedDice.row;
+      let selectedCol = selectedDice.col;
+
+      let currentRow = this.props.row;
+      let currentCol = this.props.col;
 
       if (selectedRow - 1 == currentRow && (selectedCol - 1 == currentCol || selectedCol + 1 == currentCol || selectedCol == currentCol))
         return true;
@@ -47,12 +50,16 @@ class Dice extends Component {
     return className;
   }
 
+  // This needs to be updated
   handleSelection() {
     if (this.props.anyDiceSelected) {
-      if (this.isAdjacentToSelectedDice())
-        this.props.selectDice(this.props.rowNumber, this.props.colNumber);
+      if (this.isSelected()) {
+        // Should probably clear all selected dices
+      } else if (this.isAdjacentToSelectedDice()) {
+        this.props.selectDice(this.props.row, this.props.col);
+      }
     } else {
-      this.props.selectDice(this.props.rowNumber, this.props.colNumber);
+      this.props.selectDice(this.props.row, this.props.col);
     }
   }
 
@@ -67,8 +74,8 @@ class Dice extends Component {
 
 Dice.propTypes = {
   dice: PropTypes.object.isRequired,
-  rowNumber: PropTypes.number.isRequired,
-  colNumber: PropTypes.number.isRequired
+  row: PropTypes.number.isRequired,
+  col: PropTypes.number.isRequired
 }
 
 export default Dice;

@@ -12,12 +12,12 @@ class DiceRow extends Component {
     this.props.dices.forEach((dice, index) => {
       dices.push(
         <Dice
-          colNumber={index}
-          rowNumber={this.props.rowNumber}
+          col={index}
+          row={this.props.rowNumber}
           dice={dice}
           key={index}
           selectDice={this.props.selectDice}
-          selectedDice={this.props.selectedDice}
+          selectedDices={this.props.selectedDices}
           anyDiceSelected={this.props.anyDiceSelected}
         />
       )

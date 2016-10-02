@@ -50,7 +50,7 @@ class Main extends Component {
           <div>
             {this.props.points}
           </div>
-          <Board board={this.props.board} selectDice={this.props.selectDice} selectedDice={this.props.selectedDice}/>
+          <Board board={this.props.board} selectDice={this.props.selectDice} selectedDices={this.props.selectedDices}/>
 
           <div className='container-fluid input-container'>
             <div className='row'>
@@ -72,7 +72,7 @@ function mapStateToProps(state) {
     correctWords: state.game.correctWords,
     incorrectWords: state.game.incorrectWords,
     points: state.game.points,
-    selectedDice: state.board.selectedDice
+    selectedDices: state.board.selectedDices
   };
 }
 

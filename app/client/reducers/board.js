@@ -4,10 +4,7 @@ import {
 
 export default function board(state={
   board: {},
-  selectedDice: {
-    row: null,
-    col: null
-  }
+  selectedDices: []
 }, action) {
   switch (action.type) {
     case LOAD_BOARD:
@@ -16,7 +13,7 @@ export default function board(state={
       });
     case SELECT_DICE:
       return Object.assign({}, state, {
-        selectedDice: action.payload
+        selectedDices: [...state.selectedDices, action.payload]
       });
     default:
       return state;

@@ -9,7 +9,7 @@ class Board extends Component {
   }
 
   anyDiceSelected() {
-    return this.props.selectedDice.row !== null && this.props.selectedDice.col !== null;
+    return this.props.selectedDices.length > 0;
   }
 
   renderRows() {
@@ -25,7 +25,7 @@ class Board extends Component {
           numberOfCols={this.props.board.num_of_columns}
           key={i}
           selectDice={this.props.selectDice}
-          selectedDice={this.props.selectedDice}
+          selectedDices={this.props.selectedDices}
           anyDiceSelected={this.anyDiceSelected()}
         />
       )

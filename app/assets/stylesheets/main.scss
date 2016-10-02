@@ -1,15 +1,26 @@
 .wild-card-choice {
   float: left;
-  border: 1px solid red;
+  border: 1px solid #adadad;
   width: 70px;
   height: 70px;
   display: flex;
   justify-content: center;
   align-items: center;
+  border-radius: 8px;
+
+  &:hover {
+    color: #333;
+    background-color: #e6e6e6;
+    border-color: #adadad;
+  }
 }
 
 #wild-card-modal {
   .modal-body {
     height: 350px;
   }
+}
+
+.wild-card-choices {
+  margin-top: 20px;
 }

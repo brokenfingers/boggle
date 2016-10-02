@@ -36,7 +36,9 @@ class WildCardModal extends Component {
     return (
       <Modal show={this.props.show} id='wild-card-modal'>
         <ModalBody>
-          {this.renderChoices()}
+          <div className='wild-card-choices'>
+            {this.renderChoices()}
+          </div>
         </ModalBody>
       </Modal>
     );

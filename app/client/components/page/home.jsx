@@ -13,8 +13,9 @@ export default class Home extends Component {
         <div className='container'>
           <div className='jumbotron home-jumbotron'>
             <div>
+              <h1>Boggle</h1>
               <h3>
-                Boggle is a word game designed by Allan Turoff and originally distributed by Parker Brothers.
+                Word game designed by Allan Turoff and originally distributed by Parker Brothers.
                 The game is played using a plastic grid of lettered dice, in which players attempt to find
                 words in sequences of adjacent letters.
               </h3>

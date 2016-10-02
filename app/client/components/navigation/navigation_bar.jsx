@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import NavigationHeader from './navigation_header';
+import { Link } from 'react-router';
 
 export default class NavigationBar extends Component {
   constructor(props) {
@@ -11,7 +12,7 @@ export default class NavigationBar extends Component {
       <div className='navbar navbar-default'>
         <div className='container-fluid navbar-container'>
           <NavigationHeader>
-            <p className='navbar-brand'>Boggle</p>
+            <Link to='/' className='navbar-brand'>Boggle</Link>
           </NavigationHeader>
         </div>
       </div>

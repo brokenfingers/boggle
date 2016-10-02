@@ -4,7 +4,7 @@
   <title>Boggle</title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
   <%= javascript_include_tag 'application' %>
-  <%= javascript_include_tag 'bundle/app' %>
+  <%= webpack_bundle_tag 'bundle/app' %>
   <%= csrf_meta_tags %>
 </head>
 <body className='container'>

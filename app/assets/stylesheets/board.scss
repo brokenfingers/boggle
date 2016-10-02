@@ -1,5 +1,5 @@
 #boggle-board {
-  border: 1px solid black;
+
 }
 
 .board-container {
@@ -7,26 +7,33 @@
 }
 
 .board-row {
-  border: 1px solid blue;
   height: 100px;
 }
 
 .dice {
-  border: 1px solid red;
+  border: 1px solid #adadad;
   display: flex;
   float: left;
   height: 100px;
   width: 100px;
+  border-radius: 8px;
   align-items: center;
   align-content: center;
   justify-content: center;
+  background-image: image-url('Melamine-wood-001.png');
+  opacity: 0.8;
+
+  &:hover {
+    color: #333;
+    opacity: 1.0;
+  }
 
   &.selected {
-    background-color: yellow;
+    background-image: image-url('Melamine-wood-004.png');
   }
 
   &.adjacent {
-    background-color: red;
+    background-image: image-url('Melamine-wood-005.png');
   }
 }
 

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Application from '../layout/application';
+import { Link } from 'react-router';
 
 export default class Home extends Component {
   constructor(props) {
@@ -9,8 +10,17 @@ export default class Home extends Component {
   render() {
     return (
       <Application>
-        <div>
-          Hello
+        <div className='container'>
+          <div className='jumbotron home-jumbotron'>
+            <div>
+              <h3>
+                Boggle is a word game designed by Allan Turoff and originally distributed by Parker Brothers.
+                The game is played using a plastic grid of lettered dice, in which players attempt to find
+                words in sequences of adjacent letters.
+              </h3>
+            </div>
+            <Link to='/play' className='btn btn-default'>Play</Link>
+          </div>
         </div>
       </Application>
     )

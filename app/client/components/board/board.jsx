@@ -28,6 +28,7 @@ class Board extends Component {
           selectedDices={this.props.selectedDices}
           anyDiceSelected={this.anyDiceSelected()}
           clearSelectedDices={this.props.clearSelectedDices}
+          toggleWildCardModal={this.props.toggleWildCardModal}
         />
       )
     }

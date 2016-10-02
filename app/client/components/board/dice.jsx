@@ -56,10 +56,16 @@ class Dice extends Component {
       if (this.isSelected()) {
         this.props.clearSelectedDices();
       } else if (this.isAdjacentToSelectedDice()) {
-        this.props.selectDice(this.props.row, this.props.col, this.props.dice.value);
+        if (this.props.dice.value === '*')
+          this.props.toggleWildCardModal(this.props.row, this.props.col);
+        else
+          this.props.selectDice(this.props.row, this.props.col, this.props.dice.value);
       }
     } else {
-      this.props.selectDice(this.props.row, this.props.col, this.props.dice.value);
+      if (this.props.dice.value === '*')
+        this.props.toggleWildCardModal(this.props.row, this.props.col);
+      else
+        this.props.selectDice(this.props.row, this.props.col, this.props.dice.value);
     }
   }
 

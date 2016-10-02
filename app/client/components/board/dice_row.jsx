@@ -20,6 +20,7 @@ class DiceRow extends Component {
           selectedDices={this.props.selectedDices}
           anyDiceSelected={this.props.anyDiceSelected}
           clearSelectedDices={this.props.clearSelectedDices}
+          toggleWildCardModal={this.props.toggleWildCardModal}
         />
       )
     });

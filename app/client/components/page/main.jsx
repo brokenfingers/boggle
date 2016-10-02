@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import Application from '../layout/application';
 import Board from '../board/board';
-import Modal from '../shared/modal/modal';
+import WildCardModal from '../modal/wild_card_modal';
 
 import { connect } from 'react-redux';
 import { getBoard, selectDice, clearSelectedDices } from '../../actions/board';
 import { verifyWord, updateInput } from '../../actions/game';
+import { toggleWildCardModal } from '../../actions/main';
 
 class Main extends Component {
   constructor(props) {
@@ -50,6 +51,7 @@ class Main extends Component {
             selectDice={this.props.selectDice}
             clearSelectedDices={this.props.clearSelectedDices}
             selectedDices={this.props.selectedDices}
+            toggleWildCardModal={this.props.toggleWildCardModal}
           />
 
           <div className='container-fluid input-container'>
@@ -61,6 +63,7 @@ class Main extends Component {
             </div>
           </div>
         </div>
+        <WildCardModal show={this.props.displayWildCardModal} wildCardDice={this.props.wildCardDice} selectDice={this.props.selectDice}/>
       </Application>
     )
   }
@@ -73,7 +76,9 @@ function mapStateToProps(state) {
     correctWords: state.game.correctWords,
     incorrectWords: state.game.incorrectWords,
     points: state.game.points,
-    selectedDices: state.board.selectedDices
+    selectedDices: state.board.selectedDices,
+    wildCardDice: state.main.wildCardDice,
+    displayWildCardModal: state.main.displayWildCardModal
   };
 }
 
@@ -83,7 +88,8 @@ function mapDispatchToProps(dispatch) {
     updateInput: (value) => dispatch(updateInput(value)),
     selectDice: (row, col, value) => dispatch(selectDice(row, col, value)),
     verifyWord: (word, id) => dispatch(verifyWord(word, id)),
-    clearSelectedDices: () => dispatch(clearSelectedDices())
+    clearSelectedDices: () => dispatch(clearSelectedDices()),
+    toggleWildCardModal: (row, col) => dispatch(toggleWildCardModal(row, col))
   };
 }
 

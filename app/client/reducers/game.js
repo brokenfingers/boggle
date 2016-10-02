@@ -6,6 +6,10 @@ import {
   SELECT_DICE
 } from '../actions/board';
 
+import {
+  CLEAR_STATE
+} from '../actions/main';
+
 export default function game(state={
   points: 0,
   inputValue: '',
@@ -34,6 +38,13 @@ export default function game(state={
     case SELECT_DICE:
       return Object.assign({}, state, {
         inputValue: state.inputValue + action.payload.value
+      });
+    case CLEAR_STATE:
+      return Object.assign({}, state, {
+        points: 0,
+        inputValue: '',
+        correctWords: [],
+        incorrectWords: []
       });
     default:
       return state;

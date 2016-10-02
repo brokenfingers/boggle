@@ -6,6 +6,10 @@ import {
   DISPLAY_RESULT
 } from '../actions/game';
 
+import {
+  CLEAR_STATE
+} from '../actions/main';
+
 export default function board(state={
   board: {},
   selectedDices: []
@@ -22,6 +26,11 @@ export default function board(state={
     case CLEAR_SELECTED_DICES:
     case DISPLAY_RESULT:
       return Object.assign({}, state, {
+        selectedDices: []
+      });
+    case CLEAR_STATE:
+      return Object.assign({}, state, {
+        board: {},
         selectedDices: []
       });
     default:

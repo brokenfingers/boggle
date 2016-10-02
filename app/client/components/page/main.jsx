@@ -7,7 +7,7 @@ import ScoreBoard from '../main/score_board';
 import { connect } from 'react-redux';
 import { getBoard, selectDice, clearSelectedDices } from '../../actions/board';
 import { verifyWord, updateInput } from '../../actions/game';
-import { toggleWildCardModal } from '../../actions/main';
+import { toggleWildCardModal, clearState } from '../../actions/main';
 
 class Main extends Component {
   constructor(props) {
@@ -19,6 +19,7 @@ class Main extends Component {
   }
 
   componentDidMount() {
+    this.props.clearState();
     this.props.getBoard();
   }
 
@@ -94,7 +95,8 @@ function mapDispatchToProps(dispatch) {
     selectDice: (row, col, value) => dispatch(selectDice(row, col, value)),
     verifyWord: (word, id) => dispatch(verifyWord(word, id)),
     clearSelectedDices: () => dispatch(clearSelectedDices()),
-    toggleWildCardModal: (row, col) => dispatch(toggleWildCardModal(row, col))
+    toggleWildCardModal: (row, col) => dispatch(toggleWildCardModal(row, col)),
+    clearState: () => dispatch(clearState())
   };
 }
 

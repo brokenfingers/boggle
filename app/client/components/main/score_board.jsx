@@ -5,6 +5,9 @@ class ScoreBoard extends Component {
     return (
       <div className={this.props.className} id={this.props.id}>
         <p className='score'>Total Points: {this.props.points}</p>
+        <div className='words-container'>
+          <p className='score'>Submitted Words: {this.props.correctWords.join(', ')}</p>
+        </div>
       </div>
     );
   }

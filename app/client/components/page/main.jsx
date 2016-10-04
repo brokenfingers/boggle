@@ -3,6 +3,7 @@ import Application from '../layout/application';
 import Board from '../board/board';
 import WildCardModal from '../modal/wild_card_modal';
 import ScoreBoard from '../main/score_board';
+import HelpModal from '../modal/help_modal';
 
 import { connect } from 'react-redux';
 import { getBoard, selectDice, clearSelectedDices } from '../../actions/board';
@@ -16,6 +17,12 @@ class Main extends Component {
     this.handleInputChange = this.handleInputChange.bind(this);
     this.handleInputSubmit = this.handleInputSubmit.bind(this);
     this.handleButtonSubmit = this.handleButtonSubmit.bind(this);
+    this.toggleHelpModal = this.toggleHelpModal.bind(this);
+    this.toggleModalOnKeyPress = this.toggleModalOnKeyPress.bind(this);
+
+    this.state = {
+      displayHelpModal: true
+    };
   }
 
   componentDidMount() {
@@ -37,6 +44,18 @@ class Main extends Component {
   handleButtonSubmit(event) {
     if (this.props.correctWords.indexOf(this.props.inputValue) < 0 && this.props.inputValue.length >= 3) {
       this.props.verifyWord(this.props.inputValue, this.props.board.id);
+    }
+  }
+
+  toggleHelpModal(event) {
+    event.preventDefault();
+    this.setState({displayHelpModal: !this.state.displayHelpModal});
+  }
+
+  toggleModalOnKeyPress(event) {
+    if (event.keyCode === 27) {
+      document.removeEventListener('keyup', this.toggleModalOnKeyPress);
+      this.setState({displayHelpModal: false});
     }
   }
 
@@ -69,6 +88,7 @@ class Main extends Component {
             </div>
           </div>
         </div>
+        <HelpModal show={this.state.displayHelpModal} toggleModal={this.toggleHelpModal} toggleModalOnKeyPress={this.toggleModalOnKeyPress}/>
         <WildCardModal show={this.props.displayWildCardModal} wildCardDice={this.props.wildCardDice} selectDice={this.props.selectDice}/>
       </Application>
     )

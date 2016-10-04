@@ -9,8 +9,9 @@ class HelpModal extends Component {
     super(props);
   }
 
-  componentDidMount() {
-    document.addEventListener('keyup', this.props.toggleModalOnKeyPress);
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.show)
+      document.addEventListener('keyup', this.props.toggleModalOnKeyPress);
   }
 
   render() {
@@ -27,7 +28,14 @@ class HelpModal extends Component {
           </div>
         </ModalHeader>
         <ModalBody>
-          Put the rules and the twist
+          <p>The objective of the game is to find as many words as you can from the board</p>
+          <ul>
+            <li>The letters must be adjoining in a 'chain'. (Letter cubes in the chain may be adjacent horizontally, vertically, or diagonally)</li>
+            <li>Words must contain at least three letters.</li>
+            <li>No letter cube may be used more than once within a single word.</li>
+            <li>You can choose any letter for wildcard dices (*). (The value can change for each word)</li>
+            <li>You can click on a letter to select it or directly type in the word and press 'Submit' or 'Enter'</li>
+          </ul>
         </ModalBody>
       </Modal>
     );

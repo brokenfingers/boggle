@@ -38,7 +38,7 @@ class Board extends Component {
 
   render() {
     return (
-      <div className='container-fluid board-container'>
+      <div className='board-container'>
         <div id='boggle-board'>
           {this.renderRows()}
         </div>

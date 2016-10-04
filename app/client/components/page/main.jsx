@@ -63,13 +63,15 @@ class Main extends Component {
   render() {
     return (
       <Application>
-        <div>
+        <div className='container-fluid main-container'>
           <ScoreBoard
             className='scoreboard-container'
             points={this.props.points}
             correctWords={this.props.correctWords}
             incorrectWords={this.props.incorrectWords}
           />
+
+          <a href='' onClick={this.toggleHelpModal}>How to play?</a>
 
           <Board
             board={this.props.board}
@@ -79,7 +81,7 @@ class Main extends Component {
             toggleWildCardModal={this.props.toggleWildCardModal}
           />
 
-          <div className='container-fluid input-container'>
+          <div className='input-container'>
             <div className='row'>
               <input type='text' className='form-control' onChange={this.handleInputChange} onKeyUp={this.handleInputSubmit} value={this.props.inputValue}/>
             </div>

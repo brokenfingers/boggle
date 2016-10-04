@@ -16,7 +16,8 @@ class ScoreBoard extends Component {
 ScoreBoard.propTypes = {
   className: PropTypes.string,
   id: PropTypes.string,
-  points: PropTypes.number.isRequired
+  points: PropTypes.number.isRequired,
+  correctWords: PropTypes.array.isRequired
 }
 
 export default ScoreBoard;

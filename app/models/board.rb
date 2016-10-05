@@ -30,39 +30,6 @@ class Board < ActiveRecord::Base
     )
   end
 
-  def is_word_present?(word)
-    return false if word.length > max_number_of_letters
-
-    char_list = word.split('')
-
-    starting_nodes = nodes.where(value: %W(#{char_list.shift} *)).includes(:adjacent_nodes)
-
-    # DFS should return visited nodes
-    # Using that check if word is present
-    starting_nodes.each do |node|
-      visited_nodes = dfs(node, Array.new(char_list))
-
-      return true if word_found?(visited_nodes, word)
-    end
-    false
-  end
-
-  def word_found?(nodes, word)
-    node_values = nodes.map(&:value)
-    wildcard_count = node_values.find_all { |char| char == '*' }.count
-
-    word.split('').each do |char|
-      if !node_values.include?(char)
-        if wildcard_count < 0
-          return false
-        else
-          wildcard_count -= 1
-        end
-      end
-    end
-    true
-  end
-
   def is_word_valid?(word)
     word = word.upcase
     is_word_in_dictionary?(word) && is_word_present?(word)
@@ -84,6 +51,22 @@ class Board < ActiveRecord::Base
 
   private
 
+  def word_found?(nodes, word)
+    node_values = nodes.map(&:value)
+    wildcard_count = node_values.find_all { |char| char == '*' }.count
+
+    word.split('').each do |char|
+      if !node_values.include?(char)
+        if wildcard_count < 0
+          return false
+        else
+          wildcard_count -= 1
+        end
+      end
+    end
+    true
+  end
+
   def max_number_of_letters
     num_of_rows * num_of_columns
   end
@@ -96,5 +79,22 @@ class Board < ActiveRecord::Base
 
   def format_values
     self.values = values.is_a?(Array) ? values : values.gsub(' ', '').split(',')
+  end
+
+  def is_word_present?(word)
+    return false if word.length > max_number_of_letters
+
+    char_list = word.split('')
+
+    starting_nodes = nodes.where(value: %W(#{char_list.shift} *)).includes(:adjacent_nodes)
+
+    # DFS should return visited nodes
+    # Using that check if word is present
+    starting_nodes.each do |node|
+      visited_nodes = dfs(node, Array.new(char_list))
+
+      return true if word_found?(visited_nodes, word)
+    end
+    false
   end
 end

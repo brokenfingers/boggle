@@ -1,5 +1,7 @@
 module BinarySearch
   def binary_search(array, value)
+    return -1 if value.nil?
+    
     lo = 0
     hi = array.length - 1
 

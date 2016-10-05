@@ -19,6 +19,7 @@ class Main extends Component {
     this.handleButtonSubmit = this.handleButtonSubmit.bind(this);
     this.toggleHelpModal = this.toggleHelpModal.bind(this);
     this.toggleModalOnKeyPress = this.toggleModalOnKeyPress.bind(this);
+    this.handleStartNewGame= this.handleStartNewGame.bind(this);
 
     this.state = {
       displayHelpModal: true
@@ -59,6 +60,12 @@ class Main extends Component {
     }
   }
 
+  handleStartNewGame(event) {
+    event.preventDefault();
+    this.props.clearState();
+    this.props.getBoard();
+  }
+
   // Input needs to be controlled by the store to handle dice selection
   render() {
     return (
@@ -87,6 +94,9 @@ class Main extends Component {
             </div>
             <div className='row'>
               <button className='btn btn-primary form-control home-btn' onClick={this.handleButtonSubmit}>Submit</button>
+            </div>
+            <div className='row'>
+              <button className='btn btn-danger form-control' onClick={this.handleStartNewGame}>START NEW GAME</button>
             </div>
           </div>
         </div>
